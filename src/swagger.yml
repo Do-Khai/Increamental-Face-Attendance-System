@@ -1,0 +1,129 @@
+swagger: "2.0"
+info:
+  title: Service AI for Checkin API
+  description: API for employees face recognition, train (update features and model), and delete employees.
+  version: "1.0.0"
+
+paths:
+  /verify-employee:
+    post:
+      tags:
+        - Face Recognition
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              imgs:
+                type: array
+                items:
+                  type: string
+                description: List of images in base64
+                example: ["data:image/jpeg;base64,..."]
+              secondsTime:
+                type: number
+                example: 1.5
+              timeVerify:
+                type: string
+                example: "2025-08-13T10:00:00"
+      responses:
+        200:
+          description: Verification results
+          schema:
+            type: object
+            properties:
+              partId:
+                type: string
+              probability:
+                type: string
+                example: "0.9231"
+              emotion:
+                type: string
+                example: "Happy"
+
+  /train:
+    post:
+      tags:
+        - Training
+      description: Update face features and train new model when there are new images or employees
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              employeeId:
+                type: string
+                description: Employee ID
+                example: "username@domain.com"
+              employeeName:
+                type: string
+                example: "Employee Name"
+              secondsTime:
+                type: number
+                example: 1.5
+              imgs:
+                type: array
+                items:
+                  type: string
+                description: List of images in base64
+                example: ["data:image/jpeg;base64,..."]
+      responses:
+        200:
+          description: Training finished
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Training finished"
+        400:
+          description: Missing data or invalid images
+        500:
+          description: Training error
+
+  /train_remove_employee:
+    post:
+      tags:
+        - Training
+      description: Delete employee data and features, update model.
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            type: object
+            properties:
+              employeeIds:
+                type: array
+                items:
+                  type: string
+                description: List of employee IDs to delete
+                example: ["username1", "username2"]
+      responses:
+        200:
+          description: Delete and update model successfully
+          schema:
+            type: object
+            properties:
+              status:
+                type: string
+                example: "success"
+              removed:
+                type: array
+                items:
+                  type: string
+                example: ["username1", "username2"]
+        400:
+          description: Missing employeeIds
+        500:
+          description: Delete employee error
