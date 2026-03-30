@@ -1,0 +1,22 @@
+# Web backend
+flask==3.0.3
+flasgger==0.9.7.1
+pyyaml==6.0.2
+
+# AI & ML
+torch==2.1.2+cpu
+torchvision==0.16.2+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+onnxruntime==1.17.0
+ultralytics==8.0.220
+opencv-python-headless==4.9.0.80
+pillow==10.2.0
+numpy==1.26.4
+scikit-learn==1.4.2
+pandas==2.2.2
+tqdm==4.66.4
+
+# Visualization
+matplotlib==3.8.4
+seaborn==0.13.2
