@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+
+# Ignore generated datasets and incremental models
+dataset/
+models/
+
+# Ignore weights if they are large (> 50-100MB)
+weights/
+
+# Ignore local configuration overrides
+.env
+
+test/
